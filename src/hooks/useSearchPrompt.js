@@ -1,53 +1,46 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useCallback } from "react";
 import { GenerateApiContext } from "../context";
 
 const useSearchPrompt = () => {
-  const [generateImage, setGenerateImage] = useState({
-    prompt: "",
-    width: "",
-    height: "",
-    model: "",
-  });
-  const [api, setApi] = useState("");
-  
-  
-  
+  const [images, setImage] = useState([]);
   const [loading, setLoading] = useState({ state: false, message: "" });
   const [error, setError] = useState("");
   const { selectedData } = useContext(GenerateApiContext);
 
-  const fetchGenerateData = async (prompt, width, height, model) => {
-    try {
-      setLoading({ state: true, message: "Fetching data..." });
-
-      const url = `https://image.pollinations.ai/prompt/${encodeURIComponent(
-        prompt
-      )}?width=${width}&height=${height}&model=${model}`;
-      
-      setApi(url)
-      const response = await fetch(url);
-      if (!response.ok) throw new Error(`Fetch failed: ${response.status}`);
-
-      setGenerateImage({ prompt, width, height, model, url });
-
-    } catch (error) {
-      setError(error.message);
-    } finally {
-      setLoading({ state: false, message: "" });
-    }
-  };
+  const fetchGenerateData = useCallback(
+    async (prompt, width, height, model) => {
+      try {
+        setLoading({ state: true, message: "Fetching data..." });
+        const urls = [];
+        for (let i = 0; i < 9; i++) {
+          const url = `https://image.pollinations.ai/prompt/${encodeURIComponent(
+            prompt
+          )}?width=${width}&height=${height}&model=${model}&seed=${Math.random()}`;
+          
+          urls.push(url);
+        }
+        setImage(urls);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading({ state: false, message: "" });
+      }
+    },
+    []
+  );
 
   useEffect(() => {
+    if (selectedData?.prompt) {
       fetchGenerateData(
         selectedData.prompt,
         selectedData.width,
         selectedData.height,
-        selectedData.model,
-        selectedData.url
+        selectedData.model
       );
-  }, [selectedData]);
+    }
+  }, [selectedData, fetchGenerateData]);
 
-  return { generateImage, loading, error,api };
+  return { images, loading, error };
 };
 
 export default useSearchPrompt;

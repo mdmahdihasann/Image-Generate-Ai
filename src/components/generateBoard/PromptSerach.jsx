@@ -9,8 +9,7 @@ const PromptSearch = () => {
     setSelectedData({
       ...selectedData,
       prompt: value,
-    });
-    
+    });    
   }
 
   return (

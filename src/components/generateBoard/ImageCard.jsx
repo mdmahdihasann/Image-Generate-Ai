@@ -1,17 +1,10 @@
-import Image from "../../assets/images/ai-image-1.jpeg";
-import useSearchPrompt from "../../hooks/useSearchPrompt";
 
-const ImageCard = () => {
-  const {api,loading} = useSearchPrompt();
-  
-  console.log(api);
-  
-  if (loading.state) {
-    return <span>Loading image...</span>;
-  }
-  
+
+const ImageCard = ({img}) => {
+ 
+
   return (
-    
+   
     <div className="image-card rounded-xl overflow-hidden cursor-pointer relative">
       <div className="absolute bottom-2 right-2  p-1 ">
         <svg
@@ -33,7 +26,7 @@ const ImageCard = () => {
         </svg>
       </div>
       <img
-        src={api}
+        src={img}
         alt="Anime character in kimono"
         className="w-full h-48 object-cover"
       />
