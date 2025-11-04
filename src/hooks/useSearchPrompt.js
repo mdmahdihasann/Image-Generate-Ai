@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState, useCallback } from "react";
+import { useContext, useEffect, useState } from "react";
 import { GenerateApiContext } from "../context";
 
 const useSearchPrompt = () => {
@@ -7,8 +7,7 @@ const useSearchPrompt = () => {
   const [error, setError] = useState("");
   const { selectedData } = useContext(GenerateApiContext);
 
-  const fetchGenerateData = useCallback(
-    async (prompt, width, height, model) => {
+  const fetchGenerateData = async (prompt, width, height, model) => {
       try {
         setLoading({ state: true, message: "Fetching data..." });
         const urls = [];
@@ -25,9 +24,7 @@ const useSearchPrompt = () => {
       } finally {
         setLoading({ state: false, message: "" });
       }
-    },
-    []
-  );
+    };
 
   useEffect(() => {
     if (selectedData?.prompt) {
@@ -38,7 +35,7 @@ const useSearchPrompt = () => {
         selectedData.model
       );
     }
-  }, [selectedData, fetchGenerateData]);
+  }, [selectedData]);
 
   return { images, loading, error };
 };
