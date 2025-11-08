@@ -1,13 +1,27 @@
-
+import { useContext } from "react";
+import { GenerateApiContext } from "../../context";
 
 const ImageCard = ({img}) => {
+  const {downloadImage, setDownloadImage} = useContext(GenerateApiContext)
+  
+  function handleDownload(imgUrl){
+    setDownloadImage([
+      {
+        ...downloadImage,
+        url: imgUrl
+      }
+    ])
+   
+  }
+  console.log(downloadImage);
+  
  
 
   return (
    
     <div className="image-card rounded-xl overflow-hidden cursor-pointer relative">
       <div className="absolute bottom-2 right-2  p-1 ">
-        <svg
+        <svg onClick={()=>handleDownload(img)}
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"

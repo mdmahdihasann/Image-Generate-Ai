@@ -107,7 +107,7 @@ const AdvanceSetting = () => {
           <input
             type="number"
             id="width"
-            value={selectedData.width}
+            value={selectedData?.width}
             className="w-full bg-zinc-900/10 px-3 py-2 border border-zinc-700/70 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
             onChange={(e)=>setWidth(e.target.value)}
             
@@ -125,7 +125,7 @@ const AdvanceSetting = () => {
           <input
             type="number"
             id="height"
-            value={selectedData.height}
+            value={selectedData?.height}
             className="w-full bg-zinc-900/10 px-3 py-2 border border-zinc-700/70 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
             onChange={(e)=>setHeight(e.target.value)}
           />

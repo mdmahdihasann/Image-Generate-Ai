@@ -7,14 +7,14 @@ const useSearchPrompt = () => {
   const [error, setError] = useState("");
   const { selectedData } = useContext(GenerateApiContext);
 
-  const fetchGenerateData = async (prompt, width, height, model) => {
+  const fetchGenerateData = async (prompt, width, height, model, seed) => {
       try {
         setLoading({ state: true, message: "Fetching data..." });
         const urls = [];
         for (let i = 0; i < 9; i++) {
           const url = `https://image.pollinations.ai/prompt/${encodeURIComponent(
             prompt
-          )}?width=${width}&height=${height}&model=${model}&seed=${Math.random()}`;
+          )}?width=${width}&height=${height}&model=${model}&seed=${seed + i}`;
           
           urls.push(url);
         }
@@ -32,7 +32,8 @@ const useSearchPrompt = () => {
         selectedData.prompt,
         selectedData.width,
         selectedData.height,
-        selectedData.model
+        selectedData.model,
+        selectedData.seed
       );
     }
   }, [selectedData]);

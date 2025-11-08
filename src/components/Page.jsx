@@ -1,6 +1,5 @@
-import React from "react";
 import Header from "./header/Header";
-import PromptGenerateBoard from "./generateBoard/PromptGenerateBoard";
+import { Outlet } from "react-router";
 
 
 function Page() {
@@ -15,7 +14,7 @@ function Page() {
         </div>
 
         {/* <!-- Main Content --> */}
-        <PromptGenerateBoard />
+        <Outlet/>
       </div>
   );
 }

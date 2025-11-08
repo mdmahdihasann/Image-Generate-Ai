@@ -1,19 +1,20 @@
+import { Link } from "react-router";
 
 function Nebvar() {
   return (
     <ul className="ml-4 text-sm text-zinc-400 flex gap-8">
-      <a
-        href="./index.html"
+      <Link
+        to="/"
         className="hover:text-zinc-200 font-medium text-zinc-200 cursor-pointer transition-all"
       >
         Create Image
-      </a>
-      <a
-        href="./downloaded.html"
+      </Link>
+      <Link
+        to="/download"
         className="hover:text-zinc-200 cursor-pointer transition-all"
       >
         Downloaded
-      </a>
+      </Link>
     </ul>
   );
 }
